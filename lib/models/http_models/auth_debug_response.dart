@@ -20,6 +20,7 @@ class AuthDebugResponseData {
   bool? blocked;
   Null? firstName;
   Null? lastName;
+  
   String? lastOtp;
 
   AuthDebugResponseData(
