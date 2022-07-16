@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "433683821066",
+    "project_id": "rental-b970f",
+    "storage_bucket": "rental-b970f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:433683821066:android:1897ede5c6faeb5b0465f3",
+        "android_client_info": {
+          "package_name": "com.example.open_sooq"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "433683821066-ii3lgqqlg44pin9cl70iet82l14rhfmd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAH6_ARnCXPTxoXCWJ2skmU-v6YrG7tr04"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "433683821066-ii3lgqqlg44pin9cl70iet82l14rhfmd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
