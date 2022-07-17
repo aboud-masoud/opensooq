@@ -116,9 +116,13 @@ class LoginSecoundStepScreen extends StatelessWidget {
                         .then((value) {
                       logger.wtf("value.data!.lastOtp");
                       logger.wtf(value.data!.lastOtp);
+                      print(value.data!.id!);
+
                       Get.to(() => LoginThirdScreen(
                             countryCode: countryCode,
                             mobileNumber: controller.text,
+                            hamodehapikey: value.data!.apiKey!,
+                            userid: value.data!.id!,
                           ));
                     });
                   }),

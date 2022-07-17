@@ -15,10 +15,6 @@ class HttpRepository {
     Response response;
     const baseUrl = 'https://rental-apis.herokuapp.com/';
 
-    print(postBody);
-    print(selectedLanguage);
-    print(methodName);
-
     if (await NetworkInfoService().isConnected()) {
       final dioClient = Dio()
         ..options = BaseOptions(
@@ -44,17 +40,10 @@ class HttpRepository {
           break;
         case RequestType.post:
           response = await dioClient.post(
-            "/auth-debug",
-            data: {
-              "mobile_number": "0795190663",
-              "os_type": "android",
-              "device_type_name": "sdk_gphone_x86",
-              "os_version": "11",
-              "app_version": "1.0.0",
-              "country_id": 2
-            },
-            //queryParameters: queryParam,
-            //options: Options(contentType: contentType),
+            methodName,
+            data: postBody,
+            queryParameters: queryParam,
+            options: Options(contentType: contentType),
           );
           break;
         case RequestType.delete:

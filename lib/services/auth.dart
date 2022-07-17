@@ -32,28 +32,63 @@ class AuthService {
 
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
-    // final body = AuthDebugRequest(
-    //     mobileNumber: "0$mobileNumber",
-    //     osType: Platform.isAndroid ? "android" : "iOS",
-    //     deviceTypeName: deviceTypeName,
-    //     osVersion: osVersion,
-    //     appVersion: packageInfo.version,
-    //     countryId: int.parse(countryId));
-
-    final body = {
-      "mobile_number": "0795190663",
-      "os_type": "android",
-      "device_type_name": "sdk_gphone_x86",
-      "os_version": "11",
-      "app_version": "1.0.0",
-      "country_id": 2
-    };
+    final body = AuthDebugRequest(
+        mobileNumber: "0$mobileNumber",
+        osType: Platform.isAndroid ? "android" : "iOS",
+        deviceTypeName: deviceTypeName,
+        osVersion: osVersion,
+        appVersion: packageInfo.version,
+        countryId: int.parse(countryId));
 
     final response = await HttpRepository().callRequest(
         requestType: RequestType.post,
-        methodName: "auth-debug",
-        postBody: body);
+        methodName: "auth-debug/",
+        postBody: body.toJson());
 
     return AuthDebugResponse.fromJson(response);
+  }
+
+  Future<VerifyOTPresponse> verifyOTP(
+      {required String mobileNumber,
+      required String otp,
+      required String apiKey,
+      required int userId}) async {
+    final myBox = Hive.box(DatabaseBoxConstant.storage);
+
+    final countryId = myBox.get(DatabaseFieldConstant.countryId);
+
+    DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+
+    String osVersion = "";
+    String deviceTypeName = "";
+
+    if (Platform.isAndroid) {
+      AndroidDeviceInfo androidInfo = await deviceInfo.androidInfo;
+      osVersion = androidInfo.version.release!;
+      deviceTypeName = androidInfo.model!;
+    } else {
+      IosDeviceInfo iosInfo = await deviceInfo.iosInfo;
+      osVersion = iosInfo.systemVersion!;
+      deviceTypeName = iosInfo.model!;
+    }
+
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+
+    final body = VerifyOTPrequest(
+        mobileNumber: "0$mobileNumber",
+        osType: Platform.isAndroid ? "android" : "iOS",
+        deviceTypeName: deviceTypeName,
+        osVersion: osVersion,
+        appVersion: packageInfo.version,
+        countryId: int.parse(countryId),
+        otp: otp,
+        apiKey: apiKey,
+        userId: userId);
+
+    final response = await HttpRepository().callRequest(
+        requestType: RequestType.post,
+        methodName: "auth-verify/",
+        postBody: body.toJson());
+    return VerifyOTPresponse.fromJson(response);
   }
 }
